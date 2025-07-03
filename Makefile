@@ -27,10 +27,10 @@ list_queues:
 run:
 	@$(AWS_ENV) AWS_ENDPOINT_URL=http://localhost:4566 SQS_QUEUE_URL=http://localhost:4566/000000000000/test-fifo-queue.fifo go run cmd/main.go
 
-.PHONY: send_same_message_groupd
-send_same_message_groupd:
-	@chmod +x scripts/send-same-message-groupd.sh
-	@./scripts/send-same-message-groupd.sh
+.PHONY: send_same_message_group
+send_same_message_group:
+	@chmod +x scripts/send-same-message-group.sh
+	@./scripts/send-same-message-group.sh
 
 .PHONY: send_different_message_group
 send_different_message_group:
