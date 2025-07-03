@@ -30,7 +30,7 @@ AWS SQS FIFO Queue ──┐
 LocalStack (Dev) ────┼──► SQS Client ──► Message Processor
                      │                        │
 Real AWS (Prod) ─────┘                        │
-                                               ▼
+                                              ▼
                                         Worker Pool
                                       (Multiple Workers)
                                                │
@@ -69,41 +69,6 @@ fifo-parallelizer/
 ├── go.mod                         # Go 모듈 정의
 └── README.md                      # 프로젝트 문서
 ```
-
-### 주요 컴포넌트
-
-#### 🔌 **Interfaces** (`internal/interfaces/`)
-```go
-type MessageHandler interface {
-    Handle(ctx context.Context, message types.Message) error
-}
-
-type SQSClient interface {
-    ReceiveMessages(ctx context.Context, maxMessages int32) ([]types.Message, error)
-    DeleteMessage(ctx context.Context, receiptHandle string) error
-}
-
-type MessageProcessor interface {
-    ProcessMessage(ctx context.Context, workerID int) error
-}
-```
-
-#### **Container** (`internal/container/`)
-의존성 주입을 통한 컴포넌트 조립:
-- Config 초기화
-- SQS Client 생성
-- Message Handler 구성
-- Worker Pool 설정
-
-#### **Worker Pool** (`internal/worker/`)
-- 설정 가능한 수의 워커 고루틴 관리
-- Context를 통한 Graceful shutdown
-- 에러 핸들링 및 재시도 로직
-
-#### **Message Processor** (`internal/worker/`)
-- SQS에서 메시지 수신
-- 메시지 처리 및 삭제
-- 처리 결과 로깅
 
 ## 시작하기
 
@@ -189,7 +154,7 @@ export SQS_QUEUE_URL=https://sqs.ap-northeast-2.amazonaws.com/123456789012/your-
 go run cmd/main.go
 ```
 
-## ⚙️ 설정
+## 설정
 
 ### 환경 변수
 
