@@ -54,6 +54,8 @@ func (m *MessageProcessorImpl) processMessageBatch(ctx context.Context, workerID
 		return fmt.Errorf("failed to receive messages: %w", err)
 	}
 
+	log.Printf("Worker %d received %d messages", workerID, len(messages))
+
 	if len(messages) == 0 {
 		log.Printf("Worker %d received no messages", workerID)
 		return nil

@@ -21,7 +21,7 @@ func (d *DefaultMessageHandler) Handle(ctx context.Context, message types.Messag
 	metadata := d.extractMetadata(message)
 
 	// TODO: Do something with the message
-	time.Sleep(1 * time.Second)
+	time.Sleep(3 * time.Second)
 
 	log.Printf("Successfully processed message: MessageID=%s, MessageGroupID=%s, DeduplicationID=%s, ApproximateReceiveCount=%d",
 		metadata.MessageID,
